@@ -51,17 +51,18 @@ class App extends Component {
 	};
 
 	render() {
+		const { todos } = this.state;
 		return (
 			<Switch>
 				<Route
 					exact
 					path='/'
-					render={props => <TodoContainer {...props} todos={this.state.todos} deleteTodo={this.handleDeleteTodo} />}
+					render={props => <TodoContainer {...props} todos={todos} deleteTodo={this.handleDeleteTodo} />}
 				/>
 				<Route path='/addtodo' render={props => <TodoForm {...props} addTodo={this.handleAddTodo} />} />
 				<Route
 					path='/edittodo/:todoId'
-					render={props => <TodoForm {...props} updateTodo={this.handleUpdateTodo} todos={this.state.todos} />}
+					render={props => <TodoForm {...props} updateTodo={this.handleUpdateTodo} todos={todos} />}
 				/>
 			</Switch>
 		);

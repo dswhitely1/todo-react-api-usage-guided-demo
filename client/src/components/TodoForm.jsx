@@ -27,11 +27,12 @@ class TodoForm extends Component {
 	};
 
 	render() {
+		const { id, todo } = this.state;
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<label>{this.state.id ? `Edit Todo   ` : `Add Todo   `}</label>
-				<input name='todo' value={this.state.todo} onChange={this.handleChange} placeholder='New Todo...' />
-				<button>{this.state.id ? `Update` : `Submit`}</button>
+				<label>{id ? `Edit Todo   ` : `Add Todo   `}</label>
+				<input name='todo' value={todo} onChange={this.handleChange} placeholder='New Todo...' />
+				<button>{id ? `Update` : `Submit`}</button>
 			</form>
 		);
 	}
