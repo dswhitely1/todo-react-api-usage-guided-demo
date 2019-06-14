@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class TodoForm extends Component {
 	state = {
-		formValue : '',
+		todo : '',
 	};
 
 	handleChange = e => {
@@ -11,13 +11,16 @@ class TodoForm extends Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
+		this.props.addTodo(this.state);
 	};
 
 	render() {
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit}>
-					<input name='formValue' value={this.state.formValue} onChange={this.handleChange} placeholder='New Todo...' />
+					<label>{this.state.id ? `Edit Todo   ` : `Add Todo   `}</label>
+					<input name='todo' value={this.state.todo} onChange={this.handleChange} placeholder='New Todo...' />
+					<button>{this.state.id ? `Update` : `Submit`}</button>
 				</form>
 			</div>
 		);
