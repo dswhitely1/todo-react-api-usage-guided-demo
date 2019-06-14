@@ -25,12 +25,26 @@ class App extends Component {
 			.catch(err => console.log(err));
 	};
 
+	handleUpdateTodo = updatedTodo => {
+		axios
+			.put('http://localhost:5000/todos', updatedTodo)
+			.then(res => {
+				const updatedState = this.state.todos.map(todo => (updatedTodo.id === todo.id ? updatedTodo : todo));
+				this.setState({ todos: updatedState });
+				this.props.history.push('/');
+			})
+			.catch(err => console.log(err));
+	};
+
 	render() {
 		return (
 			<Switch>
 				<Route exact path='/' render={props => <TodoContainer {...props} todos={this.state.todos} />} />
 				<Route path='/addtodo' render={props => <TodoForm {...props} addTodo={this.handleAddTodo} />} />
-				<Route path='/edittodo/:todoId' render={props => <TodoForm {...props} />} />
+				<Route
+					path='/edittodo/:todoId'
+					render={props => <TodoForm {...props} updateTodo={this.handleUpdateTodo} todos={this.state.todos} />}
+				/>
 			</Switch>
 		);
 	}

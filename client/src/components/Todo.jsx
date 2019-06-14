@@ -1,10 +1,12 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const Todo = ({ todo }) => {
 	return (
 		<div>
 			<p>{`Todo: ${todo.todo}`}</p>
-			<button>Edit</button>
+			<Link to={`/edittodo/${todo.id}`}>
+				<button>Edit</button>
+			</Link>
 			<button>Delete</button>
 		</div>
 	);
