@@ -19,7 +19,11 @@ class App extends Component {
 		axios
 			.post('http://localhost:5000/todos', newTodo)
 			.then(res => {
-				this.setState({ todos: [ ...this.state.todos, newTodo ] });
+				this.setState(state => {
+					return {
+						todos : [ ...state.todos, newTodo ],
+					};
+				});
 				this.props.history.push('/');
 			})
 			.catch(err => console.log(err));
@@ -36,10 +40,24 @@ class App extends Component {
 			.catch(err => console.log(err));
 	};
 
+	handleDeleteTodo = todoId => {
+		axios
+			.delete(`http://localhost:5000/todos/${todoId}`)
+			.then(res => {
+				const updatedState = this.state.todos.filter(todo => todo.id !== todoId);
+				this.setState({ todos: updatedState });
+			})
+			.catch(err => console.log(err));
+	};
+
 	render() {
 		return (
 			<Switch>
-				<Route exact path='/' render={props => <TodoContainer {...props} todos={this.state.todos} />} />
+				<Route
+					exact
+					path='/'
+					render={props => <TodoContainer {...props} todos={this.state.todos} deleteTodo={this.handleDeleteTodo} />}
+				/>
 				<Route path='/addtodo' render={props => <TodoForm {...props} addTodo={this.handleAddTodo} />} />
 				<Route
 					path='/edittodo/:todoId'
